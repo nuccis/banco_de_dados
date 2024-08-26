@@ -1,6 +1,6 @@
 import sqlite3
 import os
-
+    
 #Obter diretório onde o script está localizado
 diretorio_atual = os.path.dirname(__file__)
 
