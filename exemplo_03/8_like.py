@@ -13,8 +13,12 @@ cursor = conexao.cursor()
 cursor.execute("SELECT id FROM funcionarios WHERE nome = 'Nucis'")
 nucis_id = cursor.fetchone()[0]
 
-#Consultando os projetos cujo nome comece com P
+#Consultando os projetos cuja descricao comece com A
+cursor.execute("SELECT nome, descricao FROM projetos WHERE descricao LIKE 'A%'")
+projetos_com_a = cursor.fetchall()
 
+for projeto in projetos_com_a:
+    print(f'Projeto: {projeto[0]}, Descrição: {projeto[1]}')
 
 #Fechando a conexão
 conexao.close()

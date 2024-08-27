@@ -14,7 +14,11 @@ cursor.execute("SELECT id FROM funcionarios WHERE nome = 'Nucis'")
 nucis_id = cursor.fetchone()[0]
 
 #Consultando os projetos de Nucis ordenados pelo nome
+cursor.execute("SELECT nome, descricao FROM projetos WHERE pessoa_id = ? ORDER BY nome", (nucis_id,))
+projetos_ordenados = cursor.fetchall()
 
+for projeto in projetos_ordenados:
+    print(f'Projeto: {projeto[0]}, Descrição: {projeto[1]}')
 
 #Fechando a conexão
 conexao.close()
