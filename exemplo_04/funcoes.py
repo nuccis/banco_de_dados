@@ -24,7 +24,7 @@ def criar_tabelas():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS projetos (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        nome TEXTO NOT NULL,
+        nome TEXT NOT NULL,
         descricao TEXT,
         pessoa_id INTEGER,
         FOREIGN KEY(pessoa_id) REFERENCES pessoas(id)           
@@ -75,7 +75,6 @@ def cadastrar_projeto():
     
     conexao.commit()
     conexao.close()
-
 
 def visualizar_pessoas_projetos():
     conexao = sqlite3.connect(caminho_banco_dados)
