@@ -48,5 +48,32 @@ cursor.execute('''--sql
 --endsql''')
 resultado = cursor.fetchall()
 print(resultado)
+
+#Alternativa ao exemplo acima
+#Essa é uma melhor alternativa ao exemplo acima
+print('\nSubconsulta com join e group by')
+cursor.execute('''--sql 
+    SELECT funcionarios.nome, COUNT(projetos.id) AS total_projetos
+    FROM funcionarios
+    LEFT JOIN projetos ON funcionarios.id = projetos.pessoa_id
+    GROUP BY funcionarios.nome              
+--endsql''')
+resultado = cursor.fetchall()
+print(resultado)
+
+#Subconsulta com cálculo de métrica
+print('\nSubconsulta com cálculo de métrica')
+cursor.execute('''--sql
+    SELECT funcionarios.nome, projetos_por_pessoa.total_projetos
+    FROM funcionarios
+    LEFT JOIN
+        (SELECT pessoa_id, COUNT(*) AS total_projetos
+        FROM projetos
+        GROUP BY pessoa_id) AS projetos_por_pessoa
+    ON funcionarios.id = projetos_por_pessoa.pessoa_id
+--endsql''')
+resultado = cursor.fetchall()
+print(resultado)
+
 #Fechando a conexão
 conexao.close()
