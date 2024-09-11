@@ -70,5 +70,38 @@ cursor.execute('''--sql
 resultado = cursor.fetchall()
 print(resultado)
 
+#Escreva uma consulta que retorne a cidade e o número de clientes que residem em cada cidade
+print('Escreva uma consulta que retorne a cidade e o número de clientes que residem em cada cidade')
+cursor.execute('''--sql
+    SELECT cidade, COUNT(*) AS total_clientes
+    FROM clientes
+    GROUP BY cidade 
+--endsql''')
+resultado = cursor.fetchall()
+print(resultado)
+
+#Soma de vendas por vendedor
+print('Soma de vendas por vendedor')
+cursor.execute('''--sql
+    SELECT clientes.nome, COUNT(*) AS total_vendas
+    FROM vendas
+    JOIN clientes ON clientes.id = vendas.cliente_id
+    GROUP BY clientes.nome
+--endsql''')
+resultado = cursor.fetchall()
+print(resultado)
+
+#Filtrar categorias com venda média superior a 1500
+print('Filtrar categorias com venda média superior a 1500')
+cursor.execute('''--sql 
+    SELECT produtos.categoria, AVG(vendas.valor_total) AS media_vendas
+    FROM vendas
+    JOIN produtos ON produtos.id = vendas.produto_id        
+    GROUP BY produtos.categoria
+    HAVING media_vendas > 1500        
+--endsql''')
+resultado = cursor.fetchall()
+print(resultado)
+
 #Fechando conexão
 conexao.close()
